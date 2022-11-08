@@ -9,7 +9,7 @@ Burada pymavlink kütüphanesi kullanarak İHA’mızın yaw ve hız değerlerin
 
 Öncelikle İHA’nın hızını değiştirmeyi görelim. Bunu yapabilmek için kullandığımız mavlink mesajı MAV_CMD_DO_CHANGE_SPEED mesajıdır. Bu mesaj aracın hızını metre/saniye cinsinden arttırıp azaltmaya yarar. Tek parametre alır o da 2. parametre.
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 from pymavlink import mavutil
 
 iha_baglanti = mavutil.mavlink_connection('udp:localhost:14550')
@@ -18,13 +18,13 @@ print("Heartbeat from system (system %u component %u)" % (iha_baglanti.target_sy
 
 iha_baglanti.mav.command_long_send(iha_baglanti.target_system, iha_baglanti.target_component,
                                    mavutil.mavlink.MAV_CMD_DO_CHANGE_SPEED, 0, 10, 0, 0, 0, 0, 0, 0)
-                                   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                   
                                    
 Buradan da anlaşılacağı üzere 2. parametreyi 10 yaptık ve artık aracımız 10 m/s hızla hareket edecek.
 
 Şimdi de İHA’mızın yaw açısını değiştirmeyi deneyelim. Bunun için kullanmamız gereken mavlink mesajı MAV_CMD_CONDITION_YAW mesajıdır. Bu mesaj 4 adet parametre alır. Anlatmaya son parametreden başlayacağım çünkü bu parametre bu mesajı nasıl kullanacağımızı belirleyen parametre. Dördüncü parametrede 2 farklı girdi seçeneğimiz var. Eğer buraya 0 girersek iha 0 kuzey olacak şekilde girilen dereceye mutlak koordinatlara göre bakar. Fakat 1 girersek göreceli bir yöne bakma durumu oluşur yani biz ilk parametrede 45 derece dönmesini söylediğimizde o an nereye bakıyorsa baktığı yönü kuzey kabule ederek 45 derece sağa döner. Şimdi, ilk parametreye yaw açısı girilir. Bu girilen açının sonucu ise 4. parametreye göre belirlenir. İkinci parametre ise sapma değişimi sırasındaki hızı girdi olarak alır [derece/saniye]. Üçüncü parametre sadece göreli yani 4. parametreye 1 girildiği durumda çalışır ve -1 girilirse saat yönünün tersi; 1 girilirse saat yönünde dönülmesini sağlar.
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 from pymavlink import mavutil
 
 iha_baglanti = mavutil.mavlink_connection('udp:localhost:14550')
@@ -33,11 +33,10 @@ print("Heartbeat from system (system %u component %u)" % (iha_baglanti.target_sy
 
 iha_baglanti.mav.command_long_send(iha_baglanti.target_system, iha_baglanti.target_component,
                                    mavutil.mavlink.MAV_CMD_CONDITION_YAW, 0, 45, 0, 0, 0, 0, 0, 0)
-                                   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                   
                                    
 Yukarıdaki kod 4. parametreye 0 girildiği durumda mutlak koordinatlara göre 45 derece dönme işlemini yapabileceğimiz örnek koddur.
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 from pymavlink import mavutil
 
 iha_baglanti = mavutil.mavlink_connection('udp:localhost:14550')
@@ -47,16 +46,16 @@ print("Heartbeat from system (system %u component %u)" % (iha_baglanti.target_sy
 iha_baglanti.mav.command_long_send(iha_baglanti.target_system, iha_baglanti.target_component,
                                    mavutil.mavlink.MAV_CMD_CONDITION_YAW, 0, 45, 25, -1, 1, 0, 0, 0)
                                   
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 Yukarıdaki kod ise saat yönünün tersi olacak şekilde sapma değişimi sırasındaki hız: 25 iken [derece/saniye] 45 derecelik yaw açısı oluşturmasını sağlar.
 
 Gerekli linkler:
 
 (https://ardupilot.org/copter/docs/common-mavlink-mission-command-messages-mav_cmd.html#mav-cmd-condition-yaw)
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ---------------------------------
 Pymavlink İHA Hareket Komutları
@@ -100,7 +99,7 @@ Burada da sırasıyla x,y,z parametrelerine metre cinsinden yönü belirtip geri
 
 Öğrendiğimiz bu bilgilerin ardından kodlama kısmına geçelim. Şimdiye kadar anladıklarımızı kod satırlarına döktüğümüzde şu şekilde olur.
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 from pymavlink import mavutil
 
 iha_baglanti = mavutil.mavlink_connection('udp:localhost:14550')
@@ -119,11 +118,11 @@ while True:
     print(msg)
     time.sleep(1)
     
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -------------------------------------------
 Pymavlink ile İHA’yı Havalandırma (TAKEOFF)
@@ -131,7 +130,7 @@ Pymavlink ile İHA’yı Havalandırma (TAKEOFF)
 
 Burada aracımızı havalandırmak için kullanmamız gereken mavlink mesajı MAV_CMD_NAV_TAKEOFF mesajıdır.
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 from pymavlink import mavutil
 
 iha_baglanti = mavutil.mavlink_connection('udp:localhost:14550')
@@ -145,7 +144,7 @@ iha_baglanti.mav.command_long_send(iha_baglanti.target_system, iha_baglanti.targ
                                    mavutil.mavlink.MAV_CMD_NAV_TAKEOFF, 0, 0, 0, 0, 0, 0, 0, 10)
 msg = iha_baglanti.recv_match(type='COMMAND_ACK', blocking=True)
 print(msg)
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 
 Burada öncelikle pymavlink kütüphanemizi import ettik ve kullanacağımız mavutil fonksiyonunu çektik. Daha sonra önceki anlatımlardan öğrendiğimiz şekilde gerekli bağlantıları yaptık ve İHA’mızı arm durumuna getirdik. Şimdi burada takeoff işlemi için öncelikle mavlink mesajımızı COMMAND_LONG dan çekeceğimizi bilmemiz gerek. Ardından bildiğimiz COMMAND_LONG parametrelerini girmeye başlıyoruz. Target system ve target component parametrelerini girdikten sonra yapmak istediğimiz takeoff işlemi için MAV_CMD_NAV_TAKEOFF mavlink mesajını çekiyoruz. Bu mesaj 7 adet parametre alır. Birincisi hatve (pitch) için kullanılan parametre. Bu parametre sadece sabit kanatlar için geçerli. Eğer sabit kanat kullanıyorsanız buraya 1 girmeniz gerek fakat ben şimdi dönerkanat için yazdığım için buraya 0 giriyorum. Siz de eğer dönerkanat kullanıyorsanız buraya 0 girmelisiniz. Dökümantasyonda ikinci ve üçüncü parametrelerin boş bıkarılması gerektiği söylenmekte, bu sebeple buralara 0 giriyoruz. Dördüncü parametreyi ise yine dönerkanat kullanmamız sebebiyle 0 giriyoruz ve geriye kaldı 3 parametre. Bunlardan ilki Latitude ikincisi Longitude, sonuncusu ise Altitude. Latitude ve longitude değerlerini 0 girersek olduğu yerden altitude parametresinde girdiğimiz irtifaya kadar yükselir. Biz de örnekte böyle yaptık.
 
@@ -155,7 +154,9 @@ Daha sonra COMMAND_ACK mesajını çektik ve sonucu döndürdük.
 
 (https://ardupilot.org/copter/docs/common-mavlink-mission-command-messages-mav_cmd.html#mav-cmd-nav-takeoff)
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -------------------------------------------
 Pymavlink ile İHA’yı Arm Durumuna Getirme
@@ -169,7 +170,7 @@ COMMAND_LONG mesajı birçok parametre alıyor. Bunlardan ilk ikisi target syste
 
 (https://mavlink.io/en/services/command.html https://mavlink.io/en/messages/common.html#COMMAND_LONG https://mavlink.io/en/messages/common.html#MAV_CMD )
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 from pymavlink import mavutil
 
 iha_baglanti = mavutil.mavlink_connection('udp:localhost:14550')
@@ -187,7 +188,7 @@ Burada daha önceden öğrendiğimiz mesaj çekme yöntemi ile COMMAND_ACK mesaj
 
 Heartbeat from system (system 1 component 0)
 COMMAND_ACK {Command : 400, result : 0, progress : 0, result_param2 : 0, target_system : 0, target_component : 0}
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 
 Burada bilememiz gereken şey şu:
 
@@ -205,7 +206,9 @@ Bu kısımda İHA’mızı nasıl arm edeceğimizi ve ek olarak COMMAND_LONG ve 
 
 (https://mavlink.io/en/messages/common.html#MAV_RESULT)
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ----------------------------------------------------
 Pymavlink ile İHA’ya Bağlanma ve Durum Bilgisi Çekme
@@ -219,7 +222,7 @@ Pymavlink kütüphanesini kullanmadan önce elbette ki kurulumunu yapmamız gere
 pip install pymavlink
 Komut istemini açıp yukarıdaki bloğu yapıştırdığımızda pymavlink kütüphanesinin kurulumunu kolaylıkla yapabiliriz.
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 from pymavlink import mavutil 
 import time 
 iha_baglanti = mavutil.mavlink_connection('udp:localhost:14550')
@@ -232,13 +235,13 @@ while True:
 Şimdi kodlarımızı yazmaya başlayalım. Öncelikle pymavlink kütüphanesini import etmemiz gerekli. Pymavlink kütüphanesinden ihtiyacımız olan fonksiyonları daha sonra çekeceğiz. Örneğin ilk olarak mavutil modülünü çekiyoruz. Mavutil, pymavlink kütüphanesinde bağlantıları veya mesaj göndermeleri sağlayan önemli bir modül. Şimdi burada kütüphaneleri import ettikten sonra iha_baglanti isimli değişken oluşturduk ve bu değişkende mavutilden mavlink_connection fonksiyonunu kullanarak bağlantıyı sağladık. Localhostta 14540 bağlantısını gerçek hayatta kullanıyoruz fakat yukarıdaki örnekte sitl kullanacağımız için 14551 yazıyoruz. Her iha sürekli yer istasyonu yazılımlarına anlık durum mesajı gönderir (bilgilerini nerde olduğunu vs). Bu bilgileri wait_heartbeat() ile çekiyoruz. Daha sonra msg adında değişken oluşturduk. Burada recv_match fonksiyonu tüm mesajların kullanılabilir olmasını sağlıyor. Şimdi burada bu msg değişkenini yazdırınca drone ile ilgili birçok bilgi ekrana yansıtılacak. Bu bilgilerden ihtiyacımız olanları çekmek istersek şunu yapıyoruz.
 
 msg = iha_baglanti.recv_match(type='ALTITUDE', blocking=True)
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 
 Örneğin buarada sadece ALTITUDE bilgisini çektik.
 
 İşlemin sonunda buna benzer çıktı almamız gerekmektedir.
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 """
 Heartbeat from system (system 1 component 0)
 ATTITUDE {time_boot_ms : 288681, roll : -0.000892952783033, pitch : 0.00105964264367, yaw : 0.017788624391, rollspeed : 0.000322287902236, pitchspeed : 0.000295313308015, yawspeed : 0.000818725209683}
@@ -269,4 +272,4 @@ VIBRATION {time_usec : 288681099, vibration_x : 0.0349595025182, vibration_y : 0
 BATTERY_STATUS {id : 0, battery_function : 0, type : 0, temperature : 32767, voltages : [12587, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535], current_battery : 0, current_consumed : 0, energy_consumed : 0, battery_remaining : 100, time_remaining : 0, charge_state : 1, voltages_ext : [0, 0, 0, 0], mode : 0, fault_bitmask : 0}
 
 """
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
